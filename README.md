@@ -13,7 +13,7 @@ Prof. Alexander Robert Kutzke
 * [Instruções para submissão de tarefas e trabalhos](https://gitlab.tadsufpr.net.br/ds122-alexkutzke/material/blob/master/instrucoes_submissao_tarefas_e_trabalhos.md)
 * [Video aula](https://www.youtube.com/watch?v=d6ZTnQNhoCo)
 
-# Avaliação Flag Game
+# (Simulação) Avaliação Flag Game 
 
 Utilize o projeto já existente nesse repositório e implemente a aplicação abaixo. O jogo consiste em 10 perguntas com 4 opções para identificação de qual país a bandeira mostrada pertence. Cada acerto soma 1 ponto. Ao final, mostra-se a pontuação e dá a opção de iniciar novamente ou encerrar voltando à tela inicial.
 
