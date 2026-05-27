@@ -47,4 +47,14 @@ export async function saveScore(type: ScoreType, name: string, score: number) {
   return response.json();
 }
 
-// aguardando getScore 
+export async function getScores(type: ScoreType): Promise<ScoreRecord[]> {
+  const response = await fetch(`${API_BASE_URL}/${type}`);
+
+  if (!response.ok) {
+    throw new Error(`Erro ao buscar placar: ${response.status}`);
+  }
+
+  const data = await response.json();
+
+  return data.sort((a: ScoreRecord, b: ScoreRecord) => b.score - a.score);
+}
