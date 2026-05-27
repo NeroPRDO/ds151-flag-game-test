@@ -5,28 +5,54 @@ import { useRouter } from 'expo-router';
 const HomeScreen = () => {
   const [username, setUsername] = useState<string>('');
   const router = useRouter();
+  const nomeValido = username.trim().length > 0;
 
   return (
     <View style={styles.container}>
       <Text style={styles.welcome}>Bem-vindo</Text>
       <View style={styles.container_name}>
         <Text style={styles.labelName}>Digite seu nome</Text>
-        <TextInput 
+        <TextInput
           style={styles.textInput}
           value={username}
           onChangeText={(t) => setUsername(t)}
         />
-        <Button 
-          title="Iniciar"
-          color="#0a0"
-          disabled={username === ''}
-          onPress={() => {
-            router.push({
-              pathname: '/game',
-              params: { username: username }
-            });
-          }}
-        />
+
+        <View style={styles.buttonContainer}>
+          <Button
+            title="Iniciar Modo Normal"
+            color="#0a0"
+            disabled={!nomeValido}
+            onPress={() => {
+              router.push({
+                pathname: '/game',
+                params: { username: username.trim() }
+              });
+            }}
+          />
+        </View>
+
+        <View style={styles.buttonContainer}>
+          <Button
+            title="Iniciar Modo Temporizado"
+            color="#06c"
+            disabled={!nomeValido}
+            onPress={() => {
+              router.push({
+                pathname: '/game-timed',
+                params: { username: username.trim() }
+              });
+            }}
+          />
+        </View>
+
+        <View style={styles.buttonContainer}>
+          <Button
+            title="Ver Placar"
+            color="#555"
+            onPress={() => router.push('/placar')}
+          />
+        </View>
       </View>
     </View>
   );
@@ -44,13 +70,16 @@ const styles = StyleSheet.create({
     color: '#004',
     fontFamily: 'monospace',
     textTransform: 'uppercase',
+    textAlign: 'center',
   },
   container_name: {
     justifyContent: 'center',
+    width: '80%',
   },
   labelName: {
     fontSize: 30,
     fontFamily: 'monospace',
+    textAlign: 'center',
   },
   textInput: {
     borderWidth: 2,
@@ -60,6 +89,9 @@ const styles = StyleSheet.create({
     padding: 20,
     fontSize: 20,
     fontFamily: 'monospace'
+  },
+  buttonContainer: {
+    marginVertical: 6,
   },
 });
 
