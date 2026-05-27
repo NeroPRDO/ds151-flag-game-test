@@ -93,6 +93,77 @@ const PlacarScreen = () => {
   );
 };
 
-// sem styles, dividido para focar na lógica do placar
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#eee',
+    padding: 20,
+  },
+  title: {
+    fontSize: 42,
+    color: '#004',
+    fontFamily: 'monospace',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  apiText: {
+    textAlign: 'center',
+    color: '#555',
+    marginBottom: 10,
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    marginVertical: 10,
+  },
+  buttonWrapper: {
+    flex: 1,
+    marginHorizontal: 4,
+  },
+  refreshButton: {
+    marginBottom: 10,
+  },
+  loadingContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  emptyText: {
+    textAlign: 'center',
+    fontSize: 18,
+    marginTop: 40,
+  },
+  scoreItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    padding: 14,
+    borderRadius: 12,
+    marginVertical: 6,
+  },
+  position: {
+    width: 42,
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  scoreInfo: {
+    flex: 1,
+  },
+  name: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  date: {
+    fontSize: 12,
+    color: '#555',
+  },
+  points: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#004',
+  },
+  backButton: {
+    marginTop: 10,
+  },
+});
 
 export default PlacarScreen;
