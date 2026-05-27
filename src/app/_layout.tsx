@@ -18,7 +18,19 @@ export default function Layout() {
         <Stack.Screen
           name="game"
           options={{
-            title: 'Jogo',
+            title: 'Jogo Normal',
+          }}
+        />
+        <Stack.Screen
+          name="game-timed"
+          options={{
+            title: 'Jogo Temporizado',
+          }}
+        />
+        <Stack.Screen
+          name="placar"
+          options={{
+            title: 'Placar',
           }}
         />
       </Stack>
