@@ -4,6 +4,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { countries } from '../data/countries';
+// @ts-ignore
 import underscore from '../../underscore-esm-min';
 const _: any = underscore;
 
@@ -19,8 +20,6 @@ interface Country {
 }
 
 type GameStatus = 'question' | 'hit' | 'miss' | 'saving' | 'end';
-
-// Componente principal do jogo temporizado
 
 const GameTimedScreen = () => {
   const [points, setPoints] = useState<number>(0);
@@ -50,8 +49,8 @@ const GameTimedScreen = () => {
     catch (error) {
       console.log(error);
       Alert.alert(
-        'Erro ao salvar pontos',
-        'Não foi possível salvar sua pontuação. Confira se o json-server está rodando na porta 3000.'
+        'Erro ao salvar',
+        'Não foi possível salvar a pontuação. Confira se o json-server está rodando.'
       );
     }
     finally {
@@ -66,7 +65,83 @@ const GameTimedScreen = () => {
     setPoints(newPoints);
   };
 
-  // fuc next question and status, futuramente implementada.
+  const nextQuestion = () => {
+    if (finishedRef.current) return;
+
+    setChosenOption(-1);
+    setQuestions((q) => q + 1);
+    setStatus('question');
+  };
+
+  const confirmTry = () => {
+    if (finishedRef.current) return;
+
+    const option = options[chosenOption];
+    const isCorrect = selectedCountry && option && selectedCountry.name === option.name;
+
+    if (isCorrect) {
+      updatePoints(pointsRef.current + 1);
+      setStatus('hit');
+    }
+    else {
+      setStatus('miss');
+    }
+  };
+
+  useEffect(() => {
+    if (status === 'question' && !finishedRef.current) {
+      const randomCountry = countries[Math.floor(Math.random() * countries.length)];
+      setSelectedCountry(randomCountry);
+    }
+  }, [status, questions]);
+
+  useEffect(() => {
+    if (selectedCountry) {
+      const wrongOptions = countries.filter((country: Country) => country.code !== selectedCountry.code);
+      const optionsArray = _.sample(wrongOptions, 3);
+      optionsArray.push(selectedCountry);
+      setOptions(_.shuffle(optionsArray));
+    }
+  }, [selectedCountry]);
+
+  if (status === 'saving') {
+    return (
+      <SafeAreaView style={styles.savingContainer}>
+        <ActivityIndicator size="large" />
+        <Text style={styles.savingText}>Tempo encerrado!</Text>
+        <Text style={styles.savingText}>Salvando pontuação...</Text>
+      </SafeAreaView>
+    );
+  }
+
+  if (status === 'end') {
+    return (
+      <FeedbackScreen
+        status="end"
+        username={playerName}
+        points={points}
+        onRestart={() => {
+          finishedRef.current = false;
+          pointsRef.current = 0;
+          setPoints(0);
+          setQuestions(1);
+          setChosenOption(-1);
+          setRestartKey((key) => key + 1);
+          setStatus('question');
+        }}
+        onQuit={() => router.replace('/')}
+      />
+    );
+  }
+
+  if (status === 'hit' || status === 'miss') {
+    return (
+      <FeedbackScreen
+        status={status}
+        onContinue={nextQuestion}
+      />
+    );
+  }
 
   if (!selectedCountry) return (<Text>Carregando ...</Text>);
 
@@ -107,8 +182,6 @@ const GameTimedScreen = () => {
     </SafeAreaView>
   );
 };
-
-// 
 
 const styles = StyleSheet.create({
   container: {
