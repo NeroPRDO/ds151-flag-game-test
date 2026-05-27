@@ -137,8 +137,8 @@ Se precisar embaralhar as alternativas, você pode usar a biblioteca `underscore
 
 1. Faça o **fork** do repositório.
 2. Adicione os usuários da dupla (se houver) ao repositório no github;
-3. **Adicione o usuário do professor (alexkutzke) ao repositório no github**;
-4. Adicione as informações dos integrantes no arquivo INTEGRANTES.yml;
+3. **Adicione o usuário do professor (`alexkutzke`) ao repositório no github**;
+4. Adicione as informações dos integrantes no arquivo `INTEGRANTES.yml`;
 5. Instale as dependências e inicie o expo:
 
 ```bash
